@@ -1,3 +1,10 @@
 # TinyXML
 
 The project objective is to implement a simple XML parser in C++ and along the way get used to C++.
+
+The present implementation, just parses and xml file and prints them back onto console, as seen in the file.
+
+The main objective here is to get familiarize with C++ ways of getting things done.
+
+TBD: Design interface, to access the node, node values.
+
