@@ -4,6 +4,8 @@
 #include <fstream>
 #include <string>
 #include <cstddef>
+#include <vector>
+#include <algorithm>
 
 /*
  * class XmlBase
@@ -22,6 +24,13 @@ class XmlBase {
     NODE, COMMENT, UNKNOWN
   };
   int docType = UNKNOWN;
+  
+  enum XML_NODE {
+    ROOT,
+    CHILD = 2,
+    GRAND_CHILD = 4
+  };
+
   virtual std::string Parse(std::string& str) = 0;
 };
 // class XmlBase end
@@ -83,5 +92,35 @@ class XmlAttribute : public XmlBase {
 
 };
 // class XmlAttribute
+// **********************************************************************************************
+
+/*
+ * class XmlParser
+ */
+
+class XmlElement {
+public:
+  XmlElement *parent;
+  std::string elem_string;
+  std::vector <XmlElement *> children;
+};
+
+class XmlParser :public XmlBase {
+ private:
+  XmlElement *root;
+  XmlElement *parent;
+  std::string xml_str, tempStr;
+  std::string::iterator iter;
+  unsigned int spaceCnt;
+  bool enteredPreviously;
+
+ public:
+  XmlParser();
+  std::string Parse(std::string& xml_string);
+  XmlElement * getRoot();
+  ~XmlParser();
+  
+};
+// class XmlParser
 // **********************************************************************************************
 #endif // XML_H
